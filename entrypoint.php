@@ -54,7 +54,7 @@ if (!$branchSwitchedSuccessfully) {
     note(sprintf('Creating branch "%s" as it doesn\'t exist', $config->getBranch()));
 
     exec_with_output_print(sprintf('git checkout -b %s', $config->getBranch()));
-    exec_with_output_print(sprintf('git push --quiet origin %s', $config->getBranch()));
+    exec_with_output_print(sprintf('git push --quiet origin %s', $config->getBranch()), false);
 }
 
 chdir($baseDir);
@@ -190,9 +190,13 @@ function exec_with_note(string $commandLine): void
 }
 
 
-function exec_with_output_print(string $commandLine): void
+function exec_with_output_print(string $commandLine, bool $die = true): void
 {
-    execOrDie($commandLine, $outputLines);
+    if ($die) {
+        execOrDie($commandLine);
+    } else {
+        exec($commandLine, $outputLines);
+    }
     echo implode(PHP_EOL, $outputLines);
 }
 
