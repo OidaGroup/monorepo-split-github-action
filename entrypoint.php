@@ -107,14 +107,14 @@ execOrDie('git status --porcelain', $changedFiles);
 if ($changedFiles) {
     note('Adding git commit');
 
-    exec_with_output_print('git add .');
-
     // The target repository might be empty (e.g. first commit)
     exec('git rev-list -n 1 --all', $latestCommitHash);
     if (!$latestCommitHash) {
         note('The target repository is empty, creating an upstream branch');
         exec_with_output_print('git branch -M ' . $config->getBranch());
     }
+
+    exec_with_output_print('git add .');
 
     $message = sprintf('Pushing git commit with "%s" message to "%s"', $commitMessage, $config->getBranch());
     note($message);
