@@ -193,7 +193,7 @@ function exec_with_note(string $commandLine): void
 function exec_with_output_print(string $commandLine, bool $die = true): void
 {
     if ($die) {
-        execOrDie($commandLine);
+        execOrDie($commandLine, $outputLines);
     } else {
         exec($commandLine, $outputLines);
     }
