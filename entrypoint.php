@@ -46,7 +46,7 @@ exec_with_output_print('git fetch');
 note(sprintf('Trying to checkout %s branch', $config->getBranch()));
 
 // if the given branch doesn't exist it returns empty string
-$branchSwitchedSuccessfully = execOrDie(sprintf('git checkout %s', $config->getBranch())) !== '';
+$branchSwitchedSuccessfully = exec(sprintf('git checkout %s', $config->getBranch())) !== '';
 
 // if the branch doesn't exist we creat it and push to origin
 // otherwise we just checkout to the given branch
